@@ -1,0 +1,3 @@
+/home/tsuki/gamedev/poogame/Debug/CMakeFiles/poogame.dir
+/home/tsuki/gamedev/poogame/Debug/CMakeFiles/edit_cache.dir
+/home/tsuki/gamedev/poogame/Debug/CMakeFiles/rebuild_cache.dir

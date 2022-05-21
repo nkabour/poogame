@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/poogame.dir/lib/start.cpp.o -o poogame  /usr/lib/libraylib.so -L/usr/lib -lraylib 
