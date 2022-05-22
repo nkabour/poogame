@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <vector>
 
+
 class Board {
 
 private:
@@ -12,6 +13,7 @@ private:
     void updateLoc(int x, int y);
     Color getColor() const;
     int *getLoc();
+    Limits *getLimits();
     int getSize() const;
 
   private:
@@ -19,29 +21,37 @@ private:
     Color color;
     int size;
     int loc[2]; // where loc[0] is x and loc[1] is y
-    int limits[3];
+    Limits lim;
   };
   class Dude {
   public:
     Dude(Board &br);
     void setScore();
-    void updateLoc(int x, int y);
     int getScore() const;
     Color getColor() const;
     int *getLoc();
+    Limits *getLimits();
 
   private:
     Board &br;
     Color color;
     int score;
     int loc[2];
-    int limits[3];
+    Limits lim;
   };
 
 public:
+  struct Limits {
+      int top;
+      int left;
+      int right;
+      int bottom;
+  };
+
   Board(int padding, int width, int height, int boarderSize);
   void DrawPoo();
   void DrawDude();
+  void moveDude();
   void Draw() const;
 
 private:

@@ -36,6 +36,7 @@ void Game::Draw() {
 
 void Game::Update() {
 
+  board.moveDude();
   board.DrawDude();
   board.DrawPoo();
   ClearBackground(BLACK);
