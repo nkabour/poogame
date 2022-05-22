@@ -1,42 +1,35 @@
 #include "board.h"
+#include <ctime>
+#include <assert.h>
 #include <iostream>
 #include <math.h>
 #include <string>
-#include <assert.h>
 
 using namespace std;
 
-int Board::width;
-int Board::padding;
-int Board::height;
-int Board::boarderSize;
+Board::Board(int padding, int width, int height, int boarderSize)
+    : padding(padding), width(width), height(height), boarderSize(boarderSize) {
 
-Board::Board(int padding, int width, int height, int boarderSize) {
-  Board::width = width;
-  Board::padding = padding;
-  Board::height = height;
-  Board::boarderSize = boarderSize;
-
-  std::cout << "Width: " <<width << " Height: " << height << endl;
+  std::cout << "Width: " << width << " Height: " << height << endl;
   std::cout << "Padding: " << padding << " BoarerSize: " << boarderSize << endl;
 }
 
-Board::Dude::Dude() : score(0), color(GREEN) {
-  // int location
-//limit dude's location 
-  int limits[3] = {
-    Board::padding + Board::boarderSize, //top
-    Board::height - Board::boarderSize, //bottom
-    Board::width - Board::boarderSize, //right
-  };
+Board::Dude::Dude(Board &br) : score(0), color(GREEN), br(br) {
+  // limit dude's location - lame but works for now :^)
+  limits[0] = br.padding + br.boarderSize; // top
+  limits[1] = br.height - br.boarderSize;  // bottom
+  limits[2] = br.width - br.boarderSize;   // right
 
-  loc[0] = (Board::width + Board::padding) / 2;
-  loc[1] = (Board::height + Board::padding) / 2;
+
+  loc[0] = (br.width + br.padding) / 2;
+  loc[1] = (br.height + br.padding) / 2;
   std::cout << "Dude's location is x: " << loc[0] << " y: " << loc[1] << endl;
-  std::cout << "Width: " << Board::width << " Height: " << Board::height << endl;
-  std::cout << "Padding: " << Board::padding << " BoarerSize: " << Board::boarderSize << endl;
-  /*assert(loc[0] > Board::padding && loc[0] < Board::width - Board::padding);*/
-  /*assert(loc[1] > Board::padding && loc[1] < Board::height - Board::padding);*/
+  std::cout << "Width: " << br.width << " Height: " << br.height << endl;
+  std::cout << "Padding: " << br.padding << " BoarerSize: " << br.boarderSize << endl;
+  std::cout << "Limits " << limits[0] << " " << limits[1] << " " << limits[2]<< endl;
+
+  assert(loc[0] > limits[0] && loc[0] < limits[1]); // out of x boundreys
+  assert(loc[1] > limits[0] && loc[1] < limits[2]); // out of y boundreys
 }
 
 int Board::Dude::getScore() const { return score; }
@@ -45,15 +38,23 @@ int *Board::Dude::getLoc() { return loc; }
 
 Color Board::Dude::getColor() const { return color; }
 
-Board::Poo::Poo() : size(rand() % 10 + 1), color(BROWN) {
 
-  loc[0] = rand() % 10 + 1;
-  loc[1] = rand() % 10 + 1;
+Board::Poo::Poo(Board &br)
+    : color(BROWN), br(br) {
 
+  // limit dude's location - lame but works for now :^)
+  srand(time(0));
+
+  size = rand() % 50 + 10;
+  limits[0] = br.padding + br.boarderSize; // top
+  limits[1] = br.height - br.boarderSize;  // bottom
+  limits[2] = br.width - br.boarderSize;   // right
+
+  loc[0] = rand() % 100 + br.padding;
+  loc[1] = rand() % 100 + br.padding;
 
   std::cout << "Poo's location is x: " << loc[0] << " y: " << loc[1] << endl;
-  std::cout << "Poo's size is: " << size <<endl ;
-
+  std::cout << "Poo's size is: " << size << endl;
 }
 
 int *Board::Poo::getLoc() { return loc; }
@@ -64,7 +65,8 @@ int Board::Poo::getSize() const { return size; }
 void Board::DrawPoo() {
 
   int *pooLoc = poo.getLoc();
-  DrawRectangle(pooLoc[0], pooLoc[1], poo.getSize(), poo.getSize(), poo.getColor());
+  DrawRectangle(pooLoc[0], pooLoc[1], poo.getSize(), poo.getSize(),
+                poo.getColor());
 }
 void Board::DrawDude() {
 
