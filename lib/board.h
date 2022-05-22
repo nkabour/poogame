@@ -13,12 +13,10 @@ private:
       int bottom;
   };
 
-
   class Poo {
   public:
     Poo(Board &br);
     void SetColor(Color c);
-    void updateLoc(int x, int y);
     Color getColor() const;
     int *getLoc();
     Limits lim;

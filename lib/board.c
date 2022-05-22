@@ -62,15 +62,27 @@ int Board::Poo::getSize() const { return size; }
 void Board::moveDude() {
 
   int *dudeLoc = dude.getLoc();
+  float fac = 0.02;
 
   if (IsKeyDown(KEY_RIGHT) && (dudeLoc[0] < dude.lim.right))
-    dudeLoc[0] += 1;
-  if (IsKeyDown(KEY_LEFT) && (dudeLoc[0]  > dude.lim.left))
-    dudeLoc[0] -= 1;
-  if (IsKeyDown(KEY_DOWN) && (dudeLoc[1]  < dude.lim.bottom))
-    dudeLoc[1] += 1;
-  if (IsKeyDown(KEY_UP) && (dudeLoc[1]  > dude.lim.top))
-    dudeLoc[1] -= 1;
+  {
+    dudeLoc[0] += dudeLoc[0] * fac;
+  }
+  if (IsKeyDown(KEY_LEFT) && (dudeLoc[0] > dude.lim.left))
+  {
+    dudeLoc[0] -= dudeLoc[0] * fac;
+  }
+  if (IsKeyDown(KEY_DOWN) && (dudeLoc[1] < dude.lim.bottom))
+  {
+    dudeLoc[1] += dudeLoc[1] * fac ;
+  }
+  if (IsKeyDown(KEY_UP) && (dudeLoc[1] > dude.lim.top))
+  {
+    dudeLoc[1] -= dudeLoc[1] * fac;
+  }
+
+  std::cout << "Dude's location is x: " << dudeLoc[0] << " y: " << dudeLoc[1] << endl;
+  std::cout << "Dude's limitation is,left " << dude.lim.left << " right " << dude.lim.right << " top " << dude.lim.top << " bottom " << dude.lim.bottom  << endl;
 }
 
 void Board::DrawPoo() {
@@ -78,7 +90,9 @@ void Board::DrawPoo() {
   int *pooLoc = poo.getLoc();
   DrawRectangle(pooLoc[0], pooLoc[1], poo.getSize(), poo.getSize(),
                 poo.getColor());
+  
 }
+
 void Board::DrawDude() {
 
   int *dudeLoc = dude.getLoc();
@@ -107,7 +121,6 @@ void Board::DrawScore() const {
 }
 
 void Board::Draw() const {
-
   DrawScore();
   DrawBoarder();
 }
