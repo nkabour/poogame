@@ -4,7 +4,8 @@
 
 class Board {
 
-public:
+
+private:
   struct Limits {
       int top;
       int left;
@@ -13,7 +14,6 @@ public:
   };
 
 
-private:
   class Poo {
   public:
     Poo(Board &br);
