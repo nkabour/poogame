@@ -2,43 +2,7 @@
 #include <raylib.h>
 #include <vector>
 
-
 class Board {
-
-private:
-  class Poo {
-  public:
-    Poo(Board &br);
-    void SetColor(Color c);
-    void updateLoc(int x, int y);
-    Color getColor() const;
-    int *getLoc();
-    Limits *getLimits();
-    int getSize() const;
-
-  private:
-    Board &br;
-    Color color;
-    int size;
-    int loc[2]; // where loc[0] is x and loc[1] is y
-    Limits lim;
-  };
-  class Dude {
-  public:
-    Dude(Board &br);
-    void setScore();
-    int getScore() const;
-    Color getColor() const;
-    int *getLoc();
-    Limits *getLimits();
-
-  private:
-    Board &br;
-    Color color;
-    int score;
-    int loc[2];
-    Limits lim;
-  };
 
 public:
   struct Limits {
@@ -48,7 +12,45 @@ public:
       int bottom;
   };
 
+
+private:
+  class Poo {
+  public:
+    Poo(Board &br);
+    void SetColor(Color c);
+    void updateLoc(int x, int y);
+    Color getColor() const;
+    int *getLoc();
+    Limits lim;
+    int getSize() const;
+
+  private:
+    Board &br;
+    Color color;
+    int size;
+    int loc[2]; // where loc[0] is x and loc[1] is y
+  };
+
+  class Dude {
+  public:
+    Dude(Board &br);
+    void setScore();
+    int getScore() const;
+    Color getColor() const;
+    Limits lim;
+    int *getLoc();
+
+  private:
+    Board &br;
+    Color color;
+    int score;
+    int loc[2];
+
+  };
+
+public:
   Board(int padding, int width, int height, int boarderSize);
+
   void DrawPoo();
   void DrawDude();
   void moveDude();

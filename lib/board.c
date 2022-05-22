@@ -1,6 +1,6 @@
 #include "board.h"
-#include <ctime>
 #include <assert.h>
+#include <ctime>
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -17,15 +17,15 @@ Board::Board(int padding, int width, int height, int boarderSize)
 Board::Dude::Dude(Board &br) : score(0), color(GREEN), br(br) {
   // limit dude's location - lame but works for now :^)
   lim.top = lim.left = br.padding + br.boarderSize; // top
-  lim.bottom = br.height - br.boarderSize;  // bottom
-  lim.right = br.width - br.boarderSize;   // right
-
+  lim.bottom = br.height - br.boarderSize;          // bottom
+  lim.right = br.width - br.boarderSize;            // right
 
   loc[0] = (br.width + br.padding) / 2;
   loc[1] = (br.height + br.padding) / 2;
   std::cout << "Dude's location is x: " << loc[0] << " y: " << loc[1] << endl;
   std::cout << "Width: " << br.width << " Height: " << br.height << endl;
-  std::cout << "Padding: " << br.padding << " BoarerSize: " << br.boarderSize << endl;
+  std::cout << "Padding: " << br.padding << " BoarerSize: " << br.boarderSize
+            << endl;
 
   assert(loc[0] > lim.left && loc[0] < lim.right); // out of x boundreys
   assert(loc[1] > lim.top && loc[1] < lim.bottom); // out of y boundreys
@@ -34,21 +34,17 @@ Board::Dude::Dude(Board &br) : score(0), color(GREEN), br(br) {
 int Board::Dude::getScore() const { return score; }
 
 int *Board::Dude::getLoc() { return loc; }
-Limits *Board::Dude::getLimits() { return lim; }
 
 Color Board::Dude::getColor() const { return color; }
 
+Board::Poo::Poo(Board &br) : color(BROWN), br(br) {
 
-Board::Poo::Poo(Board &br)
-    : color(BROWN), br(br) {
-
-  // limit dude's location - lame but works for now :^)
   srand(time(0));
 
   size = rand() % 50 + 10;
   lim.top = lim.left = br.padding + br.boarderSize; // top
-  lim.bottom = br.height - br.boarderSize;  // bottom
-  lim.right = br.width - br.boarderSize;   // right
+  lim.bottom = br.height - br.boarderSize;          // bottom
+  lim.right = br.width - br.boarderSize;            // right
 
   loc[0] = rand() % 100 + br.padding;
   loc[1] = rand() % 100 + br.padding;
@@ -58,21 +54,23 @@ Board::Poo::Poo(Board &br)
 }
 
 int *Board::Poo::getLoc() { return loc; }
-Limits *Board::Poo::getLimits() { return lim; }
 
 Color Board::Poo::getColor() const { return color; }
+
 int Board::Poo::getSize() const { return size; }
 
 void Board::moveDude() {
 
   int *dudeLoc = dude.getLoc();
-  int *limits = dude.getLimits();
 
-  if(IsKeyDown(KEY_RIGHT)) dudeLoc[0] +=1;
-  if(IsKeyDown(KEY_LEFT)) dudeLoc[0] -=1;
-  if(IsKeyDown(KEY_DOWN)) dudeLoc[1] +=1;
-  if(IsKeyDown(KEY_UP)) dudeLoc[1] -=1;
-
+  if (IsKeyDown(KEY_RIGHT) && (dudeLoc[0] < dude.lim.right))
+    dudeLoc[0] += 1;
+  if (IsKeyDown(KEY_LEFT) && (dudeLoc[0]  > dude.lim.left))
+    dudeLoc[0] -= 1;
+  if (IsKeyDown(KEY_DOWN) && (dudeLoc[1]  < dude.lim.bottom))
+    dudeLoc[1] += 1;
+  if (IsKeyDown(KEY_UP) && (dudeLoc[1]  > dude.lim.top))
+    dudeLoc[1] -= 1;
 }
 
 void Board::DrawPoo() {

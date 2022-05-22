@@ -117,8 +117,8 @@ CMakeFiles/poogame.dir/lib/start.cpp.o: \
  /usr/include/c++/12.1.0/bits/stl_uninitialized.h \
  /usr/include/c++/12.1.0/bits/stl_vector.h \
  /usr/include/c++/12.1.0/bits/stl_bvector.h \
- /usr/include/c++/12.1.0/bits/vector.tcc /usr/include/c++/12.1.0/ctime \
- /usr/include/assert.h /usr/include/c++/12.1.0/iostream \
+ /usr/include/c++/12.1.0/bits/vector.tcc /usr/include/assert.h \
+ /usr/include/c++/12.1.0/ctime /usr/include/c++/12.1.0/iostream \
  /usr/include/c++/12.1.0/ostream /usr/include/c++/12.1.0/ios \
  /usr/include/c++/12.1.0/exception \
  /usr/include/c++/12.1.0/bits/exception_ptr.h \
