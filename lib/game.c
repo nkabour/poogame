@@ -25,6 +25,7 @@ void Game::Tick() {
   Draw();
   EndDrawing();
 }
+
 void Game::Draw() {
 
   board.Draw();
@@ -32,6 +33,7 @@ void Game::Draw() {
   board.DrawPoo();
   ClearBackground(BLACK);
 }
+
 void Game::Update() {
 
   board.DrawDude();
